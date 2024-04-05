@@ -1,6 +1,7 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import RouteConfig from './config'
 import { useRouterStore } from '../store/useRouterStore'
+import { useUserStore } from '../store/useUserStore'
 
 const routes = [
     {
@@ -23,12 +24,15 @@ const router = createRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
     const {isGetterRouter} = useRouterStore()
+    const {user} = useUserStore() 
     const token = localStorage.getItem('token')
     if (to.path === '/login') {
         next()
     } else {
-        if (token) {
+        if (user.role) {
             if(!isGetterRouter){
+                router.removeRoute("mainbox")
+                // 判断是否已经添加路由
                 configRouter()
                 next({
                     path:to.fullPath
@@ -44,9 +48,14 @@ router.beforeEach((to, from, next) => {
 
 // 配置路由
 const configRouter = () => {
+    router.addRoute({
+        path: '/mainbox',
+        name: 'mainbox',
+        component: () => import('../views/MainBox.vue'),
+    })
     let {changeRouter} = useRouterStore()
     RouteConfig.forEach(item => {
-        router.addRoute("mainbox", item)
+        checkPermison(item.path) && router.addRoute("mainbox", item)
     })
 
     //重定向
@@ -73,5 +82,10 @@ const configRouter = () => {
 //     component: () => import('../views/home/Home.vue')
 // })
 
+const checkPermison = (path) => {
+    const {user} = useUserStore()
+
+    return user.role.rigths.includes(path)
+}
 
 export default router
