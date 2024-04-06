@@ -1,4 +1,10 @@
 <template>
+<vue-particles
+            id="tsparticles"
+            :particlesLoaded="particlesLoaded"
+            :options = "config"
+        />
+
     <div class="bgd">
         <div class="login">
             <div class="box">
@@ -46,6 +52,7 @@
     height: 100vh;
     background-image: url("../resource/photo/illust_100018879_20221202_164440.png");
     background-size: cover;
+    z-index: 99;
 }
 
 .login {
@@ -61,6 +68,7 @@
     backdrop-filter: blur(5px);
     box-shadow: 0 0 100px rgba(255, 255, 255, 0.5);
     border-radius: 15px;
+    z-index: 100;
 }
 
 .table {
@@ -114,6 +122,12 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { reactive, ref } from "vue";
+import { config } from "../util/config";
+
+//粒子特效
+const particlesLoaded = async container => {
+    console.log("Particles container loaded", container);
+};
 
 //获取表单对象
 const ruleForm = reactive({

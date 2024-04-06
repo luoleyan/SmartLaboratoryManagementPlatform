@@ -9,12 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tsparticles/vue3": "^3.0.1",
     "element-plus": "^2.6.3",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "sass": "^1.74.1",
+    "tsparticles": "^3.3.0",
     "vue": "^3.4.21",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-particles": "^2.12.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
