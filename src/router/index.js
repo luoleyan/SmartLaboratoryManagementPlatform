@@ -24,24 +24,26 @@ const router = createRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
     const {isGetterRouter} = useRouterStore()
-    const {user} = useUserStore() 
-    const token = localStorage.getItem('token')
+    const {user} = useUserStore()
     if (to.path === '/login') {
         next()
     } else {
-        if (user.role) {
-            if(!isGetterRouter){
-                router.removeRoute("mainbox")
-                // 判断是否已经添加路由
-                configRouter()
-                next({
-                    path:to.fullPath
-                })
+        if (!user.role) {
+            next({
+                path:'/login'
+            })
+            
+            }else{
+                if(!isGetterRouter){
+                    router.removeRoute("mainbox")
+                    // 判断是否已经添加路由
+                    configRouter()
+                    next({
+                        path:to.fullPath
+                    })
             }else{
                 next()
-            }
-        } else {
-            next('/login')
+            } 
         }
     }
 })
