@@ -51,14 +51,16 @@ import axios from 'axios';
 import { useRoute } from 'vue-router';
 import { useUserStore } from '../../store/useUserStore'
 
+// 获取路由
 const route = useRoute()
 // console.log(route);
 
-
+// 生命周期
 onMounted(() => {
     getList()
 })
 
+// 获取列表
 const dataList = ref([])
 const getList = async () => {
     // 获取列表
@@ -67,6 +69,7 @@ const getList = async () => {
     dataList.value = res.data
 }
 
+// 菜单图标
 const mapIcons = {
     HomeFilled,
     User,
