@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RightService {
     public List<Right> getRightList();
+
+    public void updateRightList(Right right);
 }

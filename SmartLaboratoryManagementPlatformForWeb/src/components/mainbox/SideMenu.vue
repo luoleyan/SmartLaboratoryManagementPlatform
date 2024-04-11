@@ -64,8 +64,8 @@ onMounted(() => {
 const dataList = ref([])
 const getList = async () => {
     // 获取列表
-    var res = await axios.get('/public/right.json')
-    console.log(res.data);
+    var res = await axios.get('/adminapi/rights')
+    // console.log(res.data);
     dataList.value = res.data
 }
 
