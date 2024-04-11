@@ -5,5 +5,5 @@ import top.fans39.labsystem.pojo.Right;
 import java.util.List;
 
 public interface RightService {
-    public List<Right> getAllRights();
+    public List<Right> getRightList();
 }

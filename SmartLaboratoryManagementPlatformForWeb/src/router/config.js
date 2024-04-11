@@ -1,8 +1,12 @@
+function c(path) {
+    return () => import(path)
+}
+
 const routes = [
     {
         path: '/index',
         name: 'index',
-        component: () => import('../views/home/Home.vue') // 懒加载
+        component: c('../views/home/Home.vue') // 懒加载
     },
     //用户管理
     {
@@ -20,7 +24,7 @@ const routes = [
         path: '/right-manage/rightlist',
         name: 'right-manage-rightlist',
         component: () => import('../views/right-manage/RightManageRightList.vue') // 懒加载
-    },
+    }, 
     //实验室管理
     {
         path: '/lab-manage/lablist',

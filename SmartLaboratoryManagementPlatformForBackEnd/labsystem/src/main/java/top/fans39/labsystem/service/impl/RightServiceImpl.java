@@ -16,7 +16,7 @@ public class RightServiceImpl extends ServiceImpl<RightDao, Right> implements Ri
 
 
     @Override
-    public List<Right> getAllRights() {
-        return rightDao.selectList(null);
+    public List<Right> getRightList() {
+        return rightDao.getRightList();
     }
 }
