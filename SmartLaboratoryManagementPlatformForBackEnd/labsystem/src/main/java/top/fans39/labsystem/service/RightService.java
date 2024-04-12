@@ -8,4 +8,6 @@ public interface RightService {
     public List<Right> getRightList();
 
     public void updateRightList(Right right);
+
+    void deleteRightList(Integer id);
 }

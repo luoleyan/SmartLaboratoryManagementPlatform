@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface RightDao extends MPJBaseMapper<Right> {
     List<Right> getRightList();
+
+    void updateRightList(Right right);
 }

@@ -22,6 +22,11 @@ public class RightServiceImpl extends ServiceImpl<RightDao, Right> implements Ri
 
     @Override
     public void updateRightList(Right right) {
+        rightDao.updateRightList(right);
+    }
 
+    @Override
+    public void deleteRightList(Integer id) {
+        rightDao.deleteById(id);
     }
 }

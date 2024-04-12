@@ -10,6 +10,18 @@
         <result column="icon" property="icon"></result>
         <collection property="children" select="getMenuChildren" ofType="top.fans39.labsystem.pojo.Right" column="id"></collection>
     </resultMap>
+    <update id="updateRightList">
+        update rights
+        <set>
+            <if test="title!=null">
+                title = #{title},
+            </if>
+            <if test="icon!=null">
+                icon = #{icon},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
 
     <select id="getMenuChildren" resultMap="menuTree">
         select *
