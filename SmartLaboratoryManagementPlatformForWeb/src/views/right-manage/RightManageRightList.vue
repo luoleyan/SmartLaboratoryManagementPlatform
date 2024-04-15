@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-table :data="tableData" style="width: 100%">
+        <el-table :data="tableData" style="width: 100%" row-key="path">
             <el-table-column prop="title" label="权限名称" width="180" />
             <el-table-column label="图标" width="180">
                 <template #default="scope">
@@ -14,7 +14,11 @@
             <el-table-column label="操作">
                 <template #default="scope">
                     <el-button round type="warning" @click="handleUpdate(scope.row)">更新</el-button>
-                    <el-button type="danger" round>删除</el-button>
+                    <el-popconfirm title="你确定?" @confirm="handleDelete(scope.row)" confirm-button-text="确定" cancel-button-text="取消">
+                        <template #reference>
+                            <el-button type="danger" round>删除</el-button>
+                        </template>
+                    </el-popconfirm>
                 </template>
             </el-table-column>
         </el-table>
@@ -30,11 +34,7 @@
 
             <template #footer>
                 <div class="dialog-footer">
-                    <el-popconfirm title="你确定?" @confirm="handleDelete(scope.row)" confirm-button-text="确定" cancel-button-text="取消">
-                        <template #reference>
                             <el-button @click="dialogVisible = false">取消</el-button>
-                        </template>
-                    </el-popconfirm>
                     <el-button type="primary" @click="handleConfirm()">
                         更新
                     </el-button>
