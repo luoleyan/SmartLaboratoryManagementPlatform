@@ -10,8 +10,8 @@
                             <el-button class="m-2">{{ scope.row.roleName }}</el-button>
                         </template>
                         <template #default>
-                            <el-tree style="max-width: 600px" :data="getRightList" :props="defaultProps"
-                                default-expand-all :render-content="render" />
+                            <el-tree style="max-width: 600px" :data="rightList" :props="defaultProps"
+                                default-expand-all="true" :render-content="renderContent" />
                         </template>
                     </el-popover>
 
@@ -36,10 +36,11 @@
             <el-form ref="updateFormRef" style="max-width: 600px" :model="updateForm" :rules="rules" label-width="auto"
                 class="demo-ruleForm" :size="formSize" status-icon>
                 <el-form-item label="角色名称" prop="roleName">
-                    <el-input v-model="updateFormRef.roleName" placeholder="roleName" />
+                    <el-input v-model="updateForm.roleName" placeholder="roleName" />
                 </el-form-item>
                 <el-form-item label="角色权限" prop="rights">
-                    <el-tree style="max-width: 600px" :data="getRightList" :props="defaultProps" show-checkbox node-key="path"  ref="treeRef" :check-strictly="true"/>
+                    <el-tree style="max-width: 600px" :data="rightList" :props="defaultProps" show-checkbox
+                        node-key="path" ref="treeRef" :check-strictly="true"  />
                 </el-form-item>
             </el-form>
 
@@ -57,10 +58,11 @@
 
 <script setup>
 import { onMounted, reactive, ref, nextTick } from 'vue'
-import axios from 'axios'
+import request from '../../util/request';
 
 const tableData = ref([])
 const rightList = ref([])
+const updateFormRef = ref()
 const currentRights = ref([])
 
 const defaultProps = {
@@ -73,15 +75,16 @@ onMounted(() => {
     getRightList()
 })
 
-const getList = async () => {
-    await axios.get('/adminapi/roles')
-    tableData.value = res.data
+const getList = () => {
+    request.get('/adminapi/roles').then((res) => {
+        tableData.value = res
+    })
+
 }
 
-const getRightList = async () => {
-    await axios.get('/adminapi/rights')
-    rightList.value = res.data
-}
+const getRightList = () => request.get('/adminapi/rights').then(res => {
+    rightList.value = res
+})
 
 const renderContent = (
     h,
@@ -107,7 +110,7 @@ const handleHover = ({ rights }) => {
 const dialogVisible = ref(false)
 const currentItem = ref({})
 const updateForm = reactive({
-    roleName:"",
+    roleName: "",
 });
 //表单验证规则
 const rules = reactive({
@@ -116,40 +119,39 @@ const rules = reactive({
 
 const handleUpdate = (item) => {
     // console.log(item);
-    dialogVisible = true
+    dialogVisible.value = true
     updateForm.roleName = item.roleName
     currentItem.value = item
 
-    nextTick(() =>{
-        treeRef.value.setCheckedKeys(JSON.parse(item.rights)) 
+    nextTick(() => {
+        treeRef.value.setCheckedKeys(JSON.parse(item.rights))
     })
 }
 
-const handleConfirm = async () =>{
-    await axios.put(`/adminapi/roles/${currentItem.value.id}`,{
-        roleName:updateForm.roleName,
-        rights:JSON.stringify(treeRef.value.getCheckedKeys(true))
-
+const treeRef  =ref()
+const handleConfirm =  () => {
+    request.put(`/adminapi/roles/${currentItem.value.id}`,{
+        roleName: updateForm.roleName,
+        rights: JSON.stringify(treeRef.value.getCheckedKeys(true))
     })
-    await getList()
+    getList()
     dialogVisible.value = false
-} 
-
-
-const handleDelete = async ({ id }) => {
-    // console.log(id);
-    await axios.delete(`adminapi/roles/${id}`)
-    await getList() 
 }
 
-const treeRef = ref()
+
+const handleDelete = ({ id }) => {
+    // console.log(id);
+    request.delete(`/adminapi/roles/${id}`)
+    getList()
+}
+
 
 </script>
 
 
 <style lang="scss" scoped>
 ::v-deep .active {
-    color: aquamarine;
+    color: #66ccff;
 
 }
 </style>

@@ -2,7 +2,7 @@ package top.fans39.labsystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.fans39.labsystem.pojo.Right;
+import top.fans39.labsystem.pojo.Rights;
 import top.fans39.labsystem.service.RightService;
 import top.fans39.labsystem.utils.resultOBJ;
 
@@ -15,15 +15,15 @@ public class RightController {
     private RightService rightService;
 
     @GetMapping
-    public List<Right> getRightList(){
+    public List<Rights> getRightList(){
         return rightService.getRightList();
     }
 
     @PutMapping(value = "/{id}")
-    public resultOBJ updateRightList(@PathVariable Integer id, @RequestBody Right right){
+    public resultOBJ updateRightList(@PathVariable Integer id, @RequestBody Rights rights){
         try {
-            right.setId(id);
-            rightService.updateRightList(right);
+            rights.setId(id);
+            rightService.updateRightList(rights);
             return resultOBJ.UPDATE_ERROR;
         } catch (Exception e) {
             return resultOBJ.UPDATE_ERROR;

@@ -1,19 +1,16 @@
 import {defineStore} from 'pinia'
 import {ref} from 'vue'
+export const useUserStore = defineStore("user",()=>{
+    const user = ref({}) //全局可用
 
-export const useUserStore = defineStore('user', () =>{
-    const user = ref({}) // 是否是获取路由
-
-    const changeRouter = (value) =>{
-        isGetterRouter.value = value
+    const changeUser = (value)=>{
+        user.value = value
     }
 
     return {
         user,
-        changeRouter
+        changeUser
     }
-}, {
-    persist: true
-}
-// 持久化
-)
+},{
+    persist:true
+})

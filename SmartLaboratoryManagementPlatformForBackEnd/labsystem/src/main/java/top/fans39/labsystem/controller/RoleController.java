@@ -3,7 +3,6 @@ package top.fans39.labsystem.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import top.fans39.labsystem.pojo.Right;
 import top.fans39.labsystem.pojo.Roles;
 import top.fans39.labsystem.service.RoleService;
 import top.fans39.labsystem.utils.resultOBJ;

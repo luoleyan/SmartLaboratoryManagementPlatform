@@ -1,10 +1,9 @@
 import {defineStore} from 'pinia'
 import {ref} from 'vue'
+export const useRouterStore = defineStore("router",()=>{
+    const isGetterRouter = ref(false) //全局可用
 
-export const useRouterStore = defineStore('router', () =>{
-    const isGetterRouter = ref(false) // 是否是获取路由
-
-    const changeRouter = (value) =>{
+    const changeRouter = (value)=>{
         isGetterRouter.value = value
     }
 

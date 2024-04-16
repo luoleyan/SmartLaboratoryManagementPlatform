@@ -22,15 +22,11 @@ createApp(App)
 .use(ElementPlus, {
     locale: zhCn,
 })
-.use(pinia)
 .use(router)
+.use(pinia)
 .use(Particles, {
     init: async engine => {
         await loadFull(engine); // you can load the full tsParticles library from "tsparticles" if you need it
     },
 })
 .mount('#app')
-
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-    app.component(key, component)
-}

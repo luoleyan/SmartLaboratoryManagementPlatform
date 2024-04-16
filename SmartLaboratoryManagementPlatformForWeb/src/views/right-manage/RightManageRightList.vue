@@ -28,7 +28,7 @@
             <el-form ref="updateFormRef" style="max-width: 600px" :model="updateForm" :rules="rules" label-width="auto"
                 class="demo-ruleForm" :size="formSize" status-icon>
                 <el-form-item label="权限名称" prop="title">
-                    <el-input v-model="updateFormRef.title" placeholder="title" />
+                    <el-input v-model="updateForm.title" placeholder="title" />
                 </el-form-item>
             </el-form>
 
@@ -59,6 +59,7 @@ import {
 } from '@element-plus/icons-vue'
 import { onMounted, reactive, ref } from 'vue'
 import axios from 'axios'
+import request from '../../util/request';
 
 // 菜单图标
 const mapIcons = {
@@ -77,12 +78,16 @@ onMounted(() => {
     getList()
 })
 
-const getList = async () => {
-    await axios.get('/adminapi/rights')
-    tableData.value = res.data
+const getList =  () => {
+    request.get('/adminapi/rights').then(res => {
+        tableData.value = res
+    })
 }
 
+// 更新权限表单
+const updateFormRef = ref()
 
+// 更新权限弹窗
 const dialogVisible = ref(false)
 const currentItem = ref({})
 const updateForm = reactive({
@@ -104,10 +109,10 @@ const handleUpdate = (item) => {
 
 // 更新权限确认
 const handleConfirm = () => {
-    updateFormRef.value.validate(async (valid, fields) => {
+    updateFormRef.value.validate( (valid, fields) => {
         if (valid) {
-            await axios.put(`/adminapi/rights/${currentItem.value.id}`, updateForm)
-            await getList()
+            request.put(`/adminapi/rights/${currentItem.value.id}`, updateForm)
+            getList()
             dialogVisible = false
         } else {
             console.log('error submit!', fields)
@@ -116,10 +121,11 @@ const handleConfirm = () => {
 }
 
 // 更新权限表单
-const handleDelete = async ({id}) =>{
+const handleDelete =  ({id}) =>{
     // console.log(id);
-    await axios.delete(`/adminapi/rights/${id}`)
-    await getList()
+    request.delete(`/adminapi/rights/${id}`)
+    getList()
+    getList()
 }
 
 

@@ -6,10 +6,10 @@ import java.util.List;
 
 @ToString
 @Data
-public class Right {
+public class Rights {
     private Integer id;
     private String title;
     private String path;
     private String icon;
-    private List<Right> children;
+    private List<Rights> children;
 }

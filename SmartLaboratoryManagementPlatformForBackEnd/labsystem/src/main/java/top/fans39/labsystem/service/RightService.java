@@ -1,13 +1,13 @@
 package top.fans39.labsystem.service;
 
-import top.fans39.labsystem.pojo.Right;
+import top.fans39.labsystem.pojo.Rights;
 
 import java.util.List;
 
 public interface RightService {
-    public List<Right> getRightList();
+    public List<Rights> getRightList();
 
-    public void updateRightList(Right right);
+    public void updateRightList(Rights rights);
 
     void deleteRightList(Integer id);
 }

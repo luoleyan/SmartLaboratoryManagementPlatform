@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="top.fans39.labsystem.dao.UsersDao">
+    
+    <resultMap id="result" type="top.fans39.labsystem.pojo.Users">
+        <id column="id" property="id"></id>
+        <result column="username" property="username"></result>
+        <result column="password" property="password"></result>
+        <result column="role_id" property="roleId"></result>
+        <result column="is_default" property="isDefault"></result>
+        <association property="roles" select="getRole" column="role_id" javaType="top.fans39.labsystem.pojo.Roles">
+
+        </association>
+    </resultMap>
+    <insert id="addUserList" parameterType="top.fans39.labsystem.pojo.Users">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+
+            <if test="roleId != null">
+                role_id,
+            </if>
+        </trim>
+
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateUserList">
+        update users
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <select id="getUserList" resultMap="result">
+        select
+            id,username,role_id,is_default
+        from users
+        <where>
+
+            <if test="username != null">
+               and username = #{username}
+            </if>
+            <if test="password != null">
+                and password = #{password}
+            </if>
+        </where>
+    </select>
+
+    <select id="getRole" resultType="top.fans39.labsystem.pojo.Roles">
+        select
+            *
+        from roles
+        where id = #{role_id}
+    </select>
+</mapper>

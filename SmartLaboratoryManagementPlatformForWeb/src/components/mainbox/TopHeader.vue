@@ -11,7 +11,7 @@
                     <span style="line-height: 40px;">欢迎！ {{ user.username }}</span>
                     <template #dropdown>
                         <el-dropdown-menu>
-                            <el-dropdown-item>{{ user.role.roleName }}</el-dropdown-item>
+                            <el-dropdown-item>{{ user.roles.roleName }}</el-dropdown-item>
                             <el-dropdown-item @click="handelExit">退出</el-dropdown-item>
                         </el-dropdown-menu>
                     </template>
@@ -26,10 +26,10 @@ import { useUserStore } from "../../store/useUserStore";
 import { useRouterStore } from "../../store/useRouterStore";
 import { useRouter } from "vue-router";
 // 用户信息
-const userStore = useUserStore();
 const router = useRouter();
-const { changeRouter, user } = useRouterStore();
-const { changeUser } = userStore;
+const { changeRouter } = useRouterStore();
+const { changeUser, user } = useUserStore();
+// console.log(user);
 // 头像
 const circleUrl = "/avatar.jpg";
 // 退出登录

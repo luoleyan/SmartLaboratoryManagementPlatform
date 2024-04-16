@@ -123,6 +123,12 @@
 import { useRouter } from "vue-router";
 import { reactive, ref } from "vue";
 import { config } from "../util/config";
+import axios from "axios";
+import request from "../util/request";
+import { useUserStore } from "../store/useUserStore";
+import { ElMessage } from 'element-plus';
+
+const {changeUser} = useUserStore()
 
 //粒子特效
 const particlesLoaded = async container => {
@@ -146,9 +152,22 @@ const router = useRouter();
 const submitForm = async (formEl) => {
     console.log(ruleForm);
     if (!formEl) return
-    await formEl.validate((valid, fields) => {
+    await formEl.validate( (valid, fields) => {
         if (valid) {
-            console.log('submit!')
+            // console.log('submit!')
+            // const res = await axios.post(`/adminapi/users/login`, ruleForm)
+            // console.log(res);
+            request.post('/adminapi/users/login', ruleForm).then((res) =>{
+                console.log(res);
+                
+                if(res.code === 0){
+                    changeUser(res.data)
+                    ElMessage.success(res.msg)
+                    router.push("/")
+                }else{
+                    ElMessage.error(res.msg)
+                }
+            })
         } else {
             console.log('error submit!', fields)
         }
