@@ -113,7 +113,7 @@ const handleConfirm = () => {
         if (valid) {
             request.put(`/adminapi/rights/${currentItem.value.id}`, updateForm)
             getList()
-            dialogVisible = false
+            dialogVisible.value = false
         } else {
             console.log('error submit!', fields)
         }

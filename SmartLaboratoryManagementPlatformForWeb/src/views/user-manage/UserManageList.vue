@@ -186,3 +186,4 @@ const handleDelete = ({id}) =>{
     getList()
 }
 </script>
+

@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@antv/l7": "^2.21.6",
+    "@antv/l7-maps": "^2.21.6",
     "@tsparticles/vue3": "^3.0.1",
     "axios": "^1.6.8",
     "element-plus": "^2.6.3",
