@@ -1,4 +1,4 @@
-const LabType = [
+const Lab_type = [
     {
         label: "物理实验室",
         value: 1
@@ -21,7 +21,7 @@ const LabType = [
     }
 ]
 
-const CollegeType = [
+const College_type = [
     {
         label: "理学院",
         value: 1
@@ -60,4 +60,4 @@ const CollegeType = [
     }
 ]
 
-export {LabType, CollegeType}
+export {Lab_type, College_type}
